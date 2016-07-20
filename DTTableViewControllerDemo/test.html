@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+测试超链接
+</title>
+<meta name='author' content='m.teplot.com'>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+<meta name='apple-mobile-web-app-capable' content='yes'>
+<meta name='apple-mobile-web-app-status-bar-style' content='black'>
+<meta name='format-detection' content='telephone=no'>
+<meta http-equiv='Expires' CONTENT='-1'>
+<meta http-equiv='Cache-Control' CONTENT='no-cache'>
+<meta http-equiv='Pragma' CONTENT='no-cache'>
+<style type='text/css'>
+th#viewTitle{font-size:1.2em;color:#000000; padding-left:2px;padding-right:2px;}
+td#viewAuthor{font-size:0.8em;color:#326657; padding-left:2px;padding-right:2px;}
+td#viewTime{font-size:0.8em;color:#7B7B7B; padding-left:2px;padding-right:2px;}
+hr{height:1px;border:none;border-top:1px solid #E0E0E0;padding-bottom:3px;}
+img{max-width:100%;padding-left:2px;padding-right:2px;}
+p#viewContent{font-size:1.0em; color:#5B5B5B; text-indent:10px; padding-left:2px; padding-right:2px;}
+</style>
+
+<script type="text/javascript">
+//执行自定义方法,一般适用于混合编程时，本接口没有定义到一些方法的时候调用  
+function callJava(o,callback){
+	console.log('get ua');
+    var ua = navigator.userAgent;
+    alert(ua);
+    
+	native.callJava(encodeURIComponent(jsonToString(o)),callback);
+}
+
+//对象转为json字符串   
+function jsonToString(o) { 
+	var arr = []; 
+	var fmt = function(s) { 
+	if (typeof s == 'object' && s != null) return jsonToString(s); 
+		return /^(string|number)$/.test(typeof s) ? "\"" + s + "\"" : s; 
+	} 
+	for (var i in o) {
+		arr.push("\"" + i + "\":" + fmt(o[i]));
+	} 
+	return '{' + arr.join(',') + '}'; 
+} 
+
+//name 要读取的文件路径  
+//callback 返回结果的回调方法  
+function readTextFromFile(name, callback) {
+	native.readTextFromFile(encodeURIComponent(name), callback);
+}
+
+//text 要写入的文本内容  
+//name 要写入的文件路径  
+//callback 返回结果的回调方法  
+function writeTextToFile(text, name, callback) {
+	native.writeTextToFile(encodeURIComponent(text), encodeURIComponent(name),callback);
+}
+
+function readBinaryFromFile(name, callback) {
+	native.readBinaryFromFile(encodeURIComponent(name), callback);
+}
+
+function writeBinaryToFile(base64, name, callback) {
+	native.writeBinaryToFile(base64, encodeURIComponent(name), callback);
+}
+
+//name 要创建的文件夹名称  
+//callback 返回结果的回调方法,回调方法会传递文件夹的实际地址  
+function makeFolder(name, callback) {
+	native.makeFolder(encodeURIComponent(name), callback);
+}
+
+//name 要创建的新文件名称  
+//callback 返回结果的回调方法,回调方法会传递文件的实际地址  
+function newFile(name, callback) {
+	native.newFile(encodeURIComponent(name), callback);
+}
+
+//name 要删除的文件名称  
+//callback 返回结果的回调方法,回调方法会传递文件的实际地址  
+function removeFile(name, callback) {
+	native.removeFile(encodeURIComponent(name), callback)
+}
+
+//选择图片  
+function pickPhoto(callback) {
+	native.pickPhoto(callback);
+}
+
+//拍照  
+function takePhoto(callback) {
+	native.takePhoto(callback);
+}
+
+//选择视频  
+function pickVideo(callback) {
+	native.pickVideo(callback);
+}
+
+//拍摄视频  
+function takeVideo(callback) {
+	native.takeVideo(callback);
+}
+
+//裁剪图片  
+function cropPhoto(path_source,width, height, callback) {
+	native.cropPhoto();
+	native.cropPhoto(encodeURIComponent(path_source), width, height, callback);
+}
+
+//显示提示对话框  
+//title 对话框标题  
+//msg 对话框内容  
+function showAlert(title,msg){
+    native.showAlert(encodeURIComponent(title),encodeURIComponent(msg));
+}
+
+//显示带进度条的对话框  
+//msg对话框的文字信息  
+function showProgressAlert(msg){
+    native.showProgressAlert(encodeURIComponent(msg));
+}
+
+//关闭对话框  
+function cancelAlert(){
+    native.cancelAlert();
+}
+
+//显示Toast  
+//msg 文字信息  
+function showToast(msg){
+    native.showToast(encodeURIComponent(msg));
+}
+
+//拨打电话  
+function call(number){
+	native.call(number);
+}
+
+//发送短信  
+function sendSms(number,msg){
+	native.sendSms(number,encodeURIComponent(msg));
+}
+
+//发送邮件  
+function sendEmail(email,subject,content){
+	native.sendEmail(encodeURIComponent(email),encodeURIComponent(subject),encodeURIComponent(content));
+}
+
+//分享文本  
+function shareText(text){
+	native.shareText(encodeURIComponent(text));
+}
+
+//分享文件  
+function shareFile(path){
+	native.shareFile(encodeURIComponent(path));
+}
+
+//开启录音  
+//name 录音文件的保存路径  
+//callback 开启之后的回调方法名称    
+//回调方法有三个参数：path录音文件的路径；  
+//action 0未初始化状态， 1 开始录音状态， 2 停止录音状态；  
+//status 0 成功，1 失败  
+function startAudioRecorder(name, callback) {
+    native.startRecordAudio(encodeURIComponent(name), callback);
+}
+
+//停止录音  
+function stopAudioRecorder() {
+    native.stopRecordAudio();
+}
+
+//tables 表名数组  
+//createSqls 创建表的sql语句  
+//version 数据库版本，为整型  
+function initDB(tables, createSqls, version) {
+	native.initDB(tables, createSqls, version);
+}
+
+//直接执行sql语句  
+//sql 要执行的任何sql语句  
+//callback 执行结果回调方法，返回结果永远为string类型。  
+//如果sql是查询操作，则返回数据结构为json的结果值，如果为其它操作则为true(成功)或者false(失败)。  
+function execSQL(sql, callback){
+	native.execSQL(encodeURIComponent(sql), callback);
+}
+
+//插入新数据  
+//table 表名  
+//valuesJson 键值对构成的json字符串  
+function insertSql(table, valuesJson){
+	native.insert(table,valuesJson);
+}
+
+//删除数据  
+//table 表名  
+//whereClause where条件，例如：String whereClause = "id=?";  
+//whereArgs 条件数组,例如：String[] whereArgs = {String.valueOf(1)};  
+function deleteSql(table, whereClause, whereArgs){
+	native.deleteDB(table,whereClause,whereArgs);
+}
+
+//修改数据  
+//table 表名  
+//valuesJson 键值对构成的json字符串  
+//whereClause where条件，例如：String whereClause = "id=?";  
+//whereArgs 条件数组,例如：String[] whereArgs = {String.valueOf(1)};  
+function updateSql(table, valuesJson, whereClause, whereArgs){
+	native.update(table, valuesJson, whereClause, whereArgs);
+}
+
+//查询数据  
+//table 表名  
+//columns 要查询的字段数组，例如：String[] columns={"name","age","sex"}；  
+//whereClause where条件，例如：String whereClause = "id=?";  
+//whereArgs 条件数组,例如：String[] whereArgs = {String.valueOf(1)};  
+//orderBy 查询顺序  
+//limit 限制条件  
+//callback 执行结果回调方法，结果返回数据结构为json的结果值。  
+function querySql(table, columns, whereClause,whereArgs, orderBy, limit, callback){
+	native.query(table, columns, whereClause, whereArgs, orderBy, limit, callback)
+}
+
+</script>
+</head>
+<body id='body' bgcolor='#FFFFFF'>
+<table>
+<tr width='100%'>
+<th id='viewTitle' align='left'>测试超链接</th>
+</tr>
+</table>
+	<table width='100%'>
+	<tr>
+<td id='viewAuthor' width='50%' >公子小蔺</td>
+<td id='viewTime' width='50%' align='right'>2016-07-13</td>
+</tr>
+</table>
+<hr/>
+<div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload/997f3ef8-f0e1-4c74-9b8b-184baf21cdec.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload/997f3ef8-f0e1-4c74-9b8b-184baf21cdec.jpg"},"openWebImageCallback")' />
+</div><p id='viewContent'>asdas哈哈<a href='mailto:info@company.com'>info@company.com</a>你好吗?<a href='tel:18611170648'>18611170648</a>,好的很呢,给你看个图片</p><div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload/99a724e9-443b-4ace-8bed-d263a9445008.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload/99a724e9-443b-4ace-8bed-d263a9445008.jpg"},"openWebImageCallback")' />
+</div><div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811010140140.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811010140140.jpg"},"openWebImageCallback")' />
+</div><div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811011078984.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811011078984.jpg"},"openWebImageCallback")' />
+</div><div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811011628854.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811011628854.jpg"},"openWebImageCallback")' />
+</div><div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811012545893.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811012545893.jpg"},"openWebImageCallback")' />
+</div><div align='center'>
+<img src='http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811013143028.jpg' alt='pic' onclick='callJava({"imgUrl":"http://139.129.193.234:8080/zyzj-admin/upload//icon/2016041811013143028.jpg"},"openWebImageCallback")' />
+</div>
+</body>
+</html>
