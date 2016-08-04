@@ -45,14 +45,14 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    [_webView loadRequest:request];
+    [self.webView loadRequest:request];
 }
 
 - (void)setHtmlString:(NSString *)htmlString {
     _htmlString = htmlString;
     
     NSString *path = [[NSBundle mainBundle] pathForResource:htmlString ofType:nil];
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
     
 //    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
 //    NSString *filePath = [resourcePath stringByAppendingPathComponent:@"mobile.html"];
