@@ -20,4 +20,35 @@
     5.获取当前时间字符串，拿来上传之用
  */
 
+/**
+*  当前时间字符串的获取
+*/
+- (NSString *)getCurrentTimeStringWithFormatYYMMDDHHmmSS;
+/**
+ *  当前时间字符串的获取
+ */
+- (NSString *)getCurrentTimeStringWithFormatYYMMDD;
+/**
+ *  当前时间字符串的获取
+ */
+- (NSString *)getCurrentTimeStringWithFormatHHmmSS;
+
+
+/**
+*  文件夹路径的获取
+*/
++ (NSString *)getDocumentPath;
+
++ (NSString *)getDocumentPicsPath;
+
++ (NSString *)getDocumentVoicesPath;
+
++ (NSString *)getDocumentVideosPath;
+
+
+
+
+
+
+
 @end
